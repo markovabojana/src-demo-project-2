@@ -1,0 +1,80 @@
+<div class="card">
+  <p-table
+    #dt
+    [value]="users"
+    [(selection)]="selectedUsers"
+    [filterDelay]="0"
+    [lazy]="true"
+    (onLazyLoad)="onLazyLoad($event)"
+    [totalRecords]="totalRecords"
+    [globalFilterFields]="['firstName', 'lastName', 'gender', 'status']"
+    [loading]="loading"
+    [paginator]="true"
+    [rowHover]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    dataKey="id"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        List of Users
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input (input)="dt.filterGlobal($any($event.target).value, 'contains')" pInputText placeholder="Global Search"
+                 type="text"/>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="image" style="min-width: 4rem">
+          <div class="flex justify-content-between align-items-center">
+            Image
+          </div>
+        </th>
+        <th pSortableColumn="firstName" style="min-width: 4rem">
+          <div class="flex justify-content-between align-items-center">
+            First Name
+            <p-sortIcon field="firstName"></p-sortIcon>
+            <p-columnFilter [showAddButton]="false" [showMatchModes]="false" [showOperator]="false" class="ml-auto" display="menu"
+                            field="firstName" type="text"></p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="lastName" style="min-width: 4rem">
+          <div class="flex justify-content-between align-items-center">
+            Last Name
+            <p-sortIcon field="lastName"></p-sortIcon>
+            <p-columnFilter [showAddButton]="false" [showMatchModes]="false" [showOperator]="false" class="ml-auto" display="menu"
+                            field="lastName" type="text"></p-columnFilter>
+          </div>
+        </th>
+        <th></th>
+    </ng-template>
+    <ng-template let-user pTemplate="body">
+      <tr class="p-selectable-row">
+        <td>
+          <p-tableCheckbox [value]="user"></p-tableCheckbox>
+        </td>
+        <td><img [src]="user.image" [alt]="user.name" width="50" class="shadow-4" /></td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteUser(user)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">No users found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+</div>
