@@ -1,0 +1,34 @@
+<div class="card">
+  <p-dataView #dv [value]="products" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [filterBy]="products[0].thumbnail"
+              [totalRecords]="totalRecords" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]" [rows]="10"
+              layout="list">
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-between">
+        <span class="p-input-icon-left mb-2 md:mb-0">
+                    <i class="pi pi-search"></i>
+                    <input (input)="dv.filter($any($event.target).value, 'contains')" pInputText placeholder="Search by Name"
+                           type="search">
+                </span>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="listItem">
+      <div class="col-12">
+        <div class="product-list-item">
+          <img [alt]="product.title" [src]="product.thumbnail"/>
+          <div class="product-list-detail">
+            <div class="product-name">{{product.title}}</div>
+            <div class="product-description">{{product.description}}</div>
+            <p-rating [cancel]="false" [ngModel]="product.rating" [readonly]="true"></p-rating>
+            <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{product.category}}</span>
+          </div>
+          <div class="product-list-action">
+            <span class="product-price">${{product.price}}</span>
+            <p-button label="Details" (click)="viewProduct(product)"></p-button>
+            <span
+              [class]="'product-badge status-' + getInventoryStatus(product.stock).toLowerCase()">{{getInventoryStatus(product.stock)}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

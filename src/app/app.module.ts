@@ -25,9 +25,11 @@ import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
 import { PanelModule } from 'primeng/panel';
 import { DialogModule } from 'primeng/dialog';
+import { ProductsComponent } from './pages/products/products.component';
+import { ProductDetailsComponent } from './pages/products/product-details/product-details.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, UserDetailsComponent],
+  declarations: [AppComponent, UsersComponent, UserDetailsComponent, ProductsComponent, ProductDetailsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

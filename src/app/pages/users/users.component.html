@@ -3,9 +3,7 @@
     #dt
     [value]="users"
     selectionMode="single"
-    [(selection)]="selectedUsers"
     (onRowSelect)="onRowSelection($event)"
-    [filterDelay]="0"
     [lazy]="true"
     (onLazyLoad)="onLazyLoad($event)"
     [totalRecords]="totalRecords"
