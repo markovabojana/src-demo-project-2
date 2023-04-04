@@ -19,9 +19,15 @@ import { RippleModule } from 'primeng/ripple';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { UserDetailsComponent } from './pages/users/user-details/user-details.component';
+import { CardModule } from 'primeng/card';
+import { DataViewModule } from 'primeng/dataview';
+import { RatingModule } from 'primeng/rating';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent],
+  declarations: [AppComponent, UsersComponent, UserDetailsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -40,6 +46,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     ToastModule,
     ConfirmDialogModule,
+    CardModule,
+    DataViewModule,
+    RatingModule,
+    PanelModule,
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

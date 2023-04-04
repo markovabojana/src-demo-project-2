@@ -1,0 +1,53 @@
+<!--<p-card>-->
+<!--<ng-template let-user pTemplate="item">-->
+<!--  <div class="product-item">-->
+<!--    <div class="product-item-content">-->
+<!--      <div class="p-mb-3">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <h4 class="p-mb-1">{{user}}</h4>-->
+<!--        <h6 class="p-mt-0 p-mb-3">{{user}}</h6>-->
+<!--&lt;!&ndash;        <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>&ndash;&gt;-->
+<!--        <div class="car-buttons p-mt-5">-->
+<!--          <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"></p-button>-->
+<!--          <p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"></p-button>-->
+<!--          <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->
+<!--</p-card>-->
+<p-toast>
+</p-toast>
+
+<div class="center-card" *ngIf="!isEditing && user">
+<p-card header="{{user.firstName}} {{user.lastName}}" [style]="{width: '450px'}" styleClass="shadow-2" >
+  <ng-template pTemplate="header">
+    <img alt="{{user.firstName}}" src="{{user.image}}">
+  </ng-template>
+  <p><span style="font-weight: bold">Email:</span> {{user.email}}</p>
+  <p><span style="font-weight: bold">Phone:</span> {{user.phone}}</p>
+  <p><span style="font-weight: bold">Birth date:</span> {{user.birthDate | date:"dd.MM.yyyy"}}</p>
+  <p><span style="font-weight: bold">Gender:</span> {{user.gender}}</p>
+  <ng-template pTemplate="footer">
+    <p-button *ngIf="!isEditing" icon="pi pi-pencil" label="Edit" (click)="isEditing = true"></p-button>
+  </ng-template>
+</p-card>
+</div>
+
+<div class="center-card" *ngIf="isEditing && user">
+  <p-card header="{{user.firstName}} {{user.lastName}}" [style]="{width: '450px'}" styleClass="shadow-2" >
+    <ng-template pTemplate="header">
+      <img alt="{{user.firstName}}" src="{{user.image}}">
+    </ng-template>
+    <ng-container><p><label for="email" style="font-weight: bold; margin: 10px">Email:</label> <input id="email" pInputText type="text" [(ngModel)]="user.email" [readonly]="!isEditing"></p></ng-container>
+    <ng-container><p><label for="phone" style="font-weight: bold; margin: 10px">Phone:</label> <input id="phone" pInputText type="text" [(ngModel)]="user.phone" [readonly]="!isEditing"></p></ng-container>
+    <ng-container><p><label for="birthDate" style="font-weight: bold; margin: 10px">Birth date:</label> <input id="birthDate" pInputText type="text" [(ngModel)]="user.birthDate" [readonly]="!isEditing"></p></ng-container>
+    <ng-container><p><label for="gender" style="font-weight: bold; margin: 10px">Gender:</label> <input id="gender" pInputText type="text" [(ngModel)]="user.gender" [readonly]="!isEditing"></p></ng-container>
+    <ng-template pTemplate="footer">
+      <p-button (click)="onSaveEditedUser(user.id)" label="Save" icon="pi pi-check" styleClass="p-button-success"></p-button>
+      <p-button (click)="isEditing = false" label="Cancel" icon="pi pi-times" styleClass="p-button-danger" [style]="{'margin-left': '.5em'}"></p-button>
+    </ng-template>
+  </p-card>
+</div>

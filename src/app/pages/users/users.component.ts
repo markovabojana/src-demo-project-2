@@ -4,6 +4,7 @@ import { UsersService } from '../../services/users.service';
 import { PaginationRequest } from '../../models/PaginationRequest';
 import { ConfirmEventType, LazyLoadEvent } from 'primeng/api';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -14,19 +15,22 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class UsersComponent implements OnInit {
   users: Array<User> = Array.of();
   selectedUsers: Array<User> = Array.of();
-  user?: User;
 
   statuses: Array<any> = Array.of();
 
   loading: boolean = true;
+  displayModal: boolean = false;
   totalRecords: number = 0;
 
   activityValues: Array<number> = [0, 100];
 
+  filteredColumns: Array<string> = ['firstName', 'lastName', 'birthDate'];
+
   constructor(
     private usersService: UsersService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -44,8 +48,29 @@ export class UsersComponent implements OnInit {
     if (event.first == undefined || event.rows == undefined) {
       return;
     }
+    this.loading = false;
 
-    if (event.globalFilter != null) {
+    let localFilter = this.filteredColumns.find(
+      (column) =>
+        // @ts-ignore
+        event.filters[column] != undefined &&
+        // @ts-ignore
+        event.filters[column][0].value != undefined
+    );
+
+    if (localFilter) {
+      let filterMap = new Map<string, string>();
+      // @ts-ignore
+      let filterValue = event.filters[localFilter][0].value;
+
+      this.usersService
+        .filterUsers(filterMap.set('lastName', filterValue))
+        .subscribe((users) => {
+          this.users = users.users;
+          this.totalRecords = users.total;
+          this.loading = false;
+        });
+    } else if (event.globalFilter != undefined) {
       this.usersService
         .searchUsers(
           event.globalFilter,
@@ -67,11 +92,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  editUser(user: User) {
-    this.user = { ...user };
-  }
-
-  deleteUser(user: User) {
+  onDeleteUser(user: User) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + user.firstName + '?',
       header: 'Confirm',
@@ -100,5 +121,10 @@ export class UsersComponent implements OnInit {
         }
       },
     });
+  }
+
+  onRowSelection(event: any) {
+    let route = '/users/';
+    this.router.navigate([route, event.data.id]);
   }
 }
