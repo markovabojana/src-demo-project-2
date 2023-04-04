@@ -8,7 +8,7 @@ export class Utils {
 
     let httpParams = new HttpParams();
     if (limit != undefined && skip != undefined) {
-      httpParams = httpParams.set('limit', limit).set('skip', skip * limit);
+      httpParams = httpParams.set('limit', limit).set('skip', skip);
     }
 
     return httpParams;

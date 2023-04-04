@@ -6,6 +6,7 @@ import { PaginationRequest } from '../models/PaginationRequest';
 import { UsersResponse } from '../models/UsersResponse';
 import { User } from '../models/user';
 import { Utils } from './utils';
+import { CartsResponse } from '../models/CartsResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,12 @@ export class UsersService {
 
   getUser(userId: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${userId}`, {
+      headers: new HttpHeaders({ Accept: 'application/json' }),
+    });
+  }
+
+  getUserCarts(userId: string): Observable<CartsResponse> {
+    return this.http.get<CartsResponse>(`${this.apiUrl}/${userId}/carts`, {
       headers: new HttpHeaders({ Accept: 'application/json' }),
     });
   }
