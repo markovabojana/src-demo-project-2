@@ -25,6 +25,7 @@
           <input (input)="dt.filterGlobal($any($event.target).value, 'contains')" pInputText placeholder="Global Search"
                  type="text"/>
         </span>
+        <button pButton pRipple label="Add User" class="p-button-success mr-2" (click)="onAddUser()" style="float: right;"></button>
       </div>
     </ng-template>
     <ng-template pTemplate="header">

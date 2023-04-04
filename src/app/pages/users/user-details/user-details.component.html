@@ -12,6 +12,7 @@
   <p><span style="font-weight: bold">Gender:</span> {{user.gender}}</p>
   <ng-template pTemplate="footer">
     <p-button *ngIf="!isEditing" icon="pi pi-pencil" label="Edit" (click)="isEditing = true"></p-button>
+    <p-button *ngIf="!isEditing" icon="pi pi-shopping-cart" label="Carts" (click)="onOpenCarts(user.id)" [style]="{'margin-left': '.5em'}" styleClass="p-button-info"></p-button>
   </ng-template>
 </p-card>
 </div>

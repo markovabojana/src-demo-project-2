@@ -27,9 +27,10 @@ import { PanelModule } from 'primeng/panel';
 import { DialogModule } from 'primeng/dialog';
 import { ProductsComponent } from './pages/products/products.component';
 import { ProductDetailsComponent } from './pages/products/product-details/product-details.component';
+import { UserCartsComponent } from './pages/users/user-carts/user-carts.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, UserDetailsComponent, ProductsComponent, ProductDetailsComponent],
+  declarations: [AppComponent, UsersComponent, UserDetailsComponent, ProductsComponent, ProductDetailsComponent, UserCartsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
