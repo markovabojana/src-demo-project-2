@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../../../models/product';
 import { UsersService } from '../../../services/users.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { Cart } from '../../../models/cart';
 import { CartsService } from '../../../services/carts.service';
@@ -29,7 +29,8 @@ export class UserCartsComponent {
     private cartsService: CartsService,
     private productsService: ProductsService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -59,5 +60,10 @@ export class UserCartsComponent {
       throw new Error();
     }
     return this.usersService.getUserCarts(id);
+  }
+
+  onRowSelection(event: any) {
+    let route = '/products/';
+    this.router.navigate([route, event.data.id]);
   }
 }
