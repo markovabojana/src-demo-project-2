@@ -1,0 +1,57 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <div class="ui-grid-row" style="margin-top:10px">
+      <div class="ui-grid-col-2">
+        {{'Title *:'}}
+      </div>
+      <div class="ui-grid-col-6" style="margin-top:10px">
+        <input pInputText type="text" formControlName="title" placeholder="{{'Enter title'}}"/>
+      </div>
+      <div class="ui-grid-col-4">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!productForm.controls['title'].valid&&productForm.controls['title'].dirty">
+          <i class="fa fa-close"></i>
+          {{'Title is required'}}
+        </div>
+      </div>
+    </div>
+    <div class="ui-grid-row" style="margin-top:20px">
+      <div class="ui-grid-col-2">
+        {{'Description *:'}}
+      </div>
+      <div class="ui-grid-col-6" style="margin-top:10px">
+        <input pInputText type="text" formControlName="description" placeholder="{{'Enter description'}}"/>
+      </div>
+      <div class="ui-grid-col-4">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!productForm.controls['description'].valid&&productForm.controls['description'].dirty">
+          <i class="fa fa-close"></i>
+          {{'Description is required'}}
+        </div>
+      </div>
+    </div>
+    <div class="ui-grid-row" style="margin-top:20px">
+      <div class="ui-grid-col-2">
+        {{'Price *:'}}
+      </div>
+      <div class="ui-grid-col-6" style="margin-top:10px">
+        <input pInputText type="number" formControlName="price" placeholder="{{'Enter price'}}"/>
+      </div>
+      <div class="ui-grid-col-4">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!productForm.controls['price'].valid&&productForm.controls['price'].dirty">
+          <i class="fa fa-close"></i>
+          {{'Price is required'}}
+        </div>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2"></div>
+      <div class="ui-grid-col-6">
+        <button style="text-align:center;margin-top:20px" pButton type="submit" label="Submit" [disabled]="!productForm.valid"></button>
+      </div>
+      <div class="ui-grid-col-4"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+      {{'Form Submitted'}}
+      <br>
+    </div>
+  </div>
+</form>

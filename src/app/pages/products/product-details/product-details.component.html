@@ -1,0 +1,46 @@
+<p-toast>
+</p-toast>
+
+<div class="center-card" *ngIf="!isEditing && product">
+  <p-card header="{{product.title}}" [style]="{width: '650px'}" styleClass="shadow-2" >
+    <ng-template pTemplate="header">
+      <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="4">
+        <ng-template pTemplate="item" let-image>
+          <img class="gallery-image" [src]="image" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-image>
+          <div class="grid grid-nogutter justify-content-center">
+            <img class="gallery-image-2" [src]="image" />
+          </div>
+        </ng-template>
+      </p-galleria>
+    </ng-template>
+    <p><span style="font-weight: bold">Description:</span> {{product.description}}</p>
+    <p><span style="font-weight: bold">Price:</span> {{product.price}}</p>
+    <p><span style="font-weight: bold">Discount:</span> {{product.discountPercentage}}%</p>
+    <p><span style="font-weight: bold">Rating:</span> {{product.rating}}</p>
+    <ng-template pTemplate="footer">
+      <p-button *ngIf="!isEditing" styleClass="p-button-info" icon="pi pi-pencil" label="Edit" (click)="isEditing = true"></p-button>
+      <p-button icon="pi pi-trash" styleClass="p-button-danger" label="Delete" (click)="onDeleteProduct(product)" [style]="{'margin-left': '.5em'}"></p-button>
+    </ng-template>
+  </p-card>
+</div>
+
+<div class="center-card" *ngIf="isEditing && product">
+  <p-card header="{{product.title}}"  [style]="{width: '650px'}" styleClass="shadow-2" >
+    <ng-template pTemplate="header">
+      <img alt="{{product.title}}" src="{{product.thumbnail}}">
+    </ng-template>
+    <ng-container><p><label for="description" style="font-weight: bold; margin: 10px">Description:</label> <input id="description" pInputText type="text" [(ngModel)]="product.description" [readonly]="!isEditing"></p></ng-container>
+    <ng-container><p><label for="price" style="font-weight: bold; margin: 10px">Price:</label> <input id="price" pInputText type="text" [(ngModel)]="product.price" [readonly]="!isEditing"></p></ng-container>
+    <ng-container><p><label for="discountPercentage" style="font-weight: bold; margin: 10px">Discount:</label> <input id="discountPercentage" pInputText type="text" [(ngModel)]="product.discountPercentage" [readonly]="!isEditing"></p></ng-container>
+    <ng-container><p><label for="rating" style="font-weight: bold; margin: 10px">Rating:</label> <input id="rating" pInputText type="text" [(ngModel)]="product.rating" [readonly]="!isEditing"></p></ng-container>
+    <ng-template pTemplate="footer">
+      <p-button (click)="onSaveEditedProduct(product.id)" label="Save" icon="pi pi-check" styleClass="p-button-primary"></p-button>
+      <p-button (click)="isEditing = false" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+    </ng-template>
+  </p-card>
+</div>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
