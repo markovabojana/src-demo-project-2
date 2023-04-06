@@ -8,4 +8,5 @@ export interface Cart {
   userId: number;
   totalProducts: number;
   totalQuantity: number;
+  isDeleted: boolean;
 }

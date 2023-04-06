@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CartsResponse } from '../models/CartsResponse';
 import { Cart } from '../models/cart';
+import { PaginationRequest } from '../models/PaginationRequest';
+import { Utils } from './utils';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +15,12 @@ export class CartsService {
 
   constructor(private http: HttpClient) {}
 
-  getCarts(): Observable<CartsResponse> {
-    return this.http.get<CartsResponse>(this.apiUrl, {
+  getCarts(pagination?: PaginationRequest): Observable<CartsResponse> {
+    let httpParams = Utils.getOrDefaultHttpParams(pagination);
+    let url = this.apiUrl;
+    return this.http.get<CartsResponse>(url, {
       headers: new HttpHeaders({ Accept: 'application/json' }),
+      params: httpParams,
     });
   }
 
