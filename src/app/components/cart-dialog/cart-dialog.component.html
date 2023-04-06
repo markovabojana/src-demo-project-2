@@ -1,0 +1,29 @@
+<form [formGroup]="cartForm" (ngSubmit)="onSubmit()">
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <div class="ui-grid-row" style="margin-top:10px">
+      <div class="ui-grid-col-2">
+        {{'UserId *:'}}
+      </div>
+      <div class="ui-grid-col-6" style="margin-top:10px">
+        <input pInputText type="number" formControlName="userId" placeholder="{{'Enter userId'}}"/>
+      </div>
+      <div class="ui-grid-col-4">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!cartForm.controls['userId'].valid&&cartForm.controls['userId'].dirty">
+          <i class="fa fa-close"></i>
+          {{'UserId is required'}}
+        </div>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2"></div>
+      <div class="ui-grid-col-6">
+        <button style="text-align:center;margin-top:20px" pButton type="submit" label="Submit" [disabled]="!cartForm.valid"></button>
+      </div>
+      <div class="ui-grid-col-4"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+      {{'Form Submitted'}}
+      <br>
+    </div>
+  </div>
+</form>
