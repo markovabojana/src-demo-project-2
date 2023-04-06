@@ -2,7 +2,7 @@
 </p-toast>
 
 <div class="center-card" *ngIf="!isEditing && user">
-<p-card header="{{user.firstName}} {{user.lastName}}" [style]="{width: '450px'}" styleClass="shadow-2" >
+<p-card header="{{user.firstName}} {{user.lastName}}" [style]="{width: '650px'}" styleClass="shadow-2" >
   <ng-template pTemplate="header">
     <img alt="{{user.firstName}}" src="{{user.image}}">
   </ng-template>
@@ -11,14 +11,14 @@
   <p><span style="font-weight: bold">Birth date:</span> {{user.birthDate | date:"dd.MM.yyyy"}}</p>
   <p><span style="font-weight: bold">Gender:</span> {{user.gender}}</p>
   <ng-template pTemplate="footer">
-    <p-button *ngIf="!isEditing" icon="pi pi-pencil" label="Edit" (click)="isEditing = true"></p-button>
+    <p-button *ngIf="!isEditing" icon="pi pi-pencil" label="Edit" (click)="isEditing = true" styleClass="p-button-info"></p-button>
     <p-button *ngIf="!isEditing" icon="pi pi-shopping-cart" label="Carts" (click)="onOpenCarts(user.id)" [style]="{'margin-left': '.5em'}" styleClass="p-button-info"></p-button>
   </ng-template>
 </p-card>
 </div>
 
 <div class="center-card" *ngIf="isEditing && user">
-  <p-card header="{{user.firstName}} {{user.lastName}}" [style]="{width: '450px'}" styleClass="shadow-2" >
+  <p-card header="{{user.firstName}} {{user.lastName}}" [style]="{width: '650px'}" styleClass="shadow-2" >
     <ng-template pTemplate="header">
       <img alt="{{user.firstName}}" src="{{user.image}}">
     </ng-template>
@@ -27,8 +27,8 @@
     <ng-container><p><label for="birthDate" style="font-weight: bold; margin: 10px">Birth date:</label> <input id="birthDate" pInputText type="text" [(ngModel)]="user.birthDate" [readonly]="!isEditing"></p></ng-container>
     <ng-container><p><label for="gender" style="font-weight: bold; margin: 10px">Gender:</label> <input id="gender" pInputText type="text" [(ngModel)]="user.gender" [readonly]="!isEditing"></p></ng-container>
     <ng-template pTemplate="footer">
-      <p-button (click)="onSaveEditedUser(user.id)" label="Save" icon="pi pi-check" styleClass="p-button-success"></p-button>
-      <p-button (click)="isEditing = false" label="Cancel" icon="pi pi-times" styleClass="p-button-danger" [style]="{'margin-left': '.5em'}"></p-button>
+      <p-button (click)="onSaveEditedUser(user.id)" label="Save" icon="pi pi-check" styleClass="p-button-primary"></p-button>
+      <p-button (click)="isEditing = false" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
     </ng-template>
   </p-card>
 </div>

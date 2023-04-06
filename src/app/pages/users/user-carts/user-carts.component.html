@@ -2,10 +2,18 @@
 </p-toast>
 
 <div class="card">
-  <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"  [rows]="5" [rowsPerPageOptions]="[10, 25, 50]">
+  <p-table [value]="products"
+           selectionMode="single"
+           (onRowSelect)="onRowSelection($event)"
+           [tableStyle]="{'min-width': '60rem'}"
+           [paginator]="true"
+           [rows]="5"
+           [rowsPerPageOptions]="[10, 25, 50]">
     <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between">
-        Shopping Cart
+      <div class="table-header">
+        <span class="p-input-icon-left">
+         Shopping Cart
+        </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -20,7 +28,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
-      <tr>
+      <tr class="p-selectable-row" [pSelectableRow]="product">
         <td>{{product.title}}</td>
         <td>{{product.quantity}}</td>
         <td>{{product.price | currency:'EUR'}}</td>
@@ -28,7 +36,7 @@
         <td>{{product.discountedPrice | currency:'EUR'}}</td>
         <td>{{product.total | currency:'EUR'}}</td>
         <td>
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onRemoveProduct(product)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="onRemoveProduct(product)"></button>
         </td>
       </tr>
     </ng-template>

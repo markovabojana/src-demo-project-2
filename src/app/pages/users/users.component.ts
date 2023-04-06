@@ -5,16 +5,17 @@ import { PaginationRequest } from '../../models/PaginationRequest';
 import { ConfirmEventType, LazyLoadEvent } from 'primeng/api';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UserDialogComponent } from '../../components/user-dialog/user-dialog.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: 'users.component.html',
   styleUrls: ['users.component.sass'],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, DialogService],
 })
 export class UsersComponent implements OnInit {
   users: Array<User> = Array.of();
-  selectedUsers: Array<User> = Array.of();
   user?: User;
 
   statuses: Array<any> = Array.of();
@@ -23,7 +24,7 @@ export class UsersComponent implements OnInit {
   displayModal: boolean = false;
   totalRecords: number = 0;
 
-  activityValues: Array<number> = [0, 100];
+  ref: DynamicDialogRef | undefined;
 
   filteredColumns: Array<string> = ['firstName', 'lastName', 'birthDate'];
 
@@ -31,6 +32,7 @@ export class UsersComponent implements OnInit {
     private usersService: UsersService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    public dialogService: DialogService,
     private router: Router
   ) {}
 
@@ -65,7 +67,7 @@ export class UsersComponent implements OnInit {
       let filterValue = event.filters[localFilter][0].value;
 
       this.usersService
-        .filterUsers(filterMap.set('lastName', filterValue))
+        .filterUsers(filterMap.set(localFilter, filterValue))
         .subscribe((users) => {
           this.users = users.users;
           this.totalRecords = users.total;
@@ -98,6 +100,8 @@ export class UsersComponent implements OnInit {
       message: 'Are you sure you want to delete ' + user.firstName + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass: 'p-button-primary',
+      rejectButtonStyleClass: 'p-button-secondary',
       accept: () => {
         this.usersService.deleteUser(user.id).subscribe((user) => {
           if (user.isDeleted) {
@@ -129,12 +133,40 @@ export class UsersComponent implements OnInit {
     this.router.navigate([route, event.data.id]);
   }
 
-  onAddUser() {
-    this.displayModal = true;
+  show() {
+    this.ref = this.dialogService.open(UserDialogComponent, {
+      header: 'Add a new user',
+      data: 'yes',
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+    });
+
+    this.ref.onClose.subscribe((user: User) => {
+      if (user) {
+        this.users.unshift(user);
+
+        this.messageService.add({
+          severity: 'info',
+          summary: 'New user added!',
+          detail: user.firstName,
+        });
+      }
+    });
+
+    this.ref.onMaximize.subscribe((value) => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Maximized',
+        detail: `maximized: ${value.maximized}`,
+      });
+    });
   }
 
-  onSubmit(event: MouseEvent) {
-    this.displayModal = false;
-    this.usersService.addUser(this.user!!);
+  ngOnDestroy() {
+    if (this.ref) {
+      this.ref.close();
+    }
   }
 }
