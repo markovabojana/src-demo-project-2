@@ -11,7 +11,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -28,9 +28,33 @@ import { DialogModule } from 'primeng/dialog';
 import { ProductsComponent } from './pages/products/products.component';
 import { ProductDetailsComponent } from './pages/products/product-details/product-details.component';
 import { UserCartsComponent } from './pages/users/user-carts/user-carts.component';
+import { CartsComponent } from './pages/carts/carts.component';
+import { CarouselModule } from 'primeng/carousel';
+import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
+import { CalendarModule } from 'primeng/calendar';
+import { GalleriaModule } from 'primeng/galleria';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenuModule } from 'primeng/menu';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { MenuComponent } from './components/menu/menu.component';
+import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
+import { CartDialogComponent } from './components/cart-dialog/cart-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent, UserDetailsComponent, ProductsComponent, ProductDetailsComponent, UserCartsComponent],
+  declarations: [
+    AppComponent,
+    UsersComponent,
+    UserDetailsComponent,
+    ProductsComponent,
+    ProductDetailsComponent,
+    UserCartsComponent,
+    CartsComponent,
+    UserDialogComponent,
+    MenuComponent,
+    ProductDialogComponent,
+    CartDialogComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -54,6 +78,14 @@ import { UserCartsComponent } from './pages/users/user-carts/user-carts.componen
     RatingModule,
     PanelModule,
     DialogModule,
+    CarouselModule,
+    ReactiveFormsModule,
+    CalendarModule,
+    GalleriaModule,
+    InputTextareaModule,
+    SidebarModule,
+    MenuModule,
+    TabMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

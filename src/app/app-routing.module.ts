@@ -5,10 +5,11 @@ import { UserDetailsComponent } from './pages/users/user-details/user-details.co
 import { ProductsComponent } from './pages/products/products.component';
 import { ProductDetailsComponent } from './pages/products/product-details/product-details.component';
 import { UserCartsComponent } from './pages/users/user-carts/user-carts.component';
+import { CartsComponent } from './pages/carts/carts.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'users',
     component: UsersComponent,
   },
   {
@@ -25,6 +26,14 @@ const routes: Routes = [
   },
   {
     path: 'users/:id/carts',
+    component: UserCartsComponent,
+  },
+  {
+    path: 'carts',
+    component: CartsComponent,
+  },
+  {
+    path: 'carts/:id',
     component: UserCartsComponent,
   },
 ];
