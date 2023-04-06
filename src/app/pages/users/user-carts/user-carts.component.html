@@ -1,0 +1,41 @@
+<p-toast>
+</p-toast>
+
+<div class="card">
+  <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"  [rows]="5" [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        Shopping Cart
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Title</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Discount</th>
+        <th>Discounted price</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{product.title}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price | currency:'EUR'}}</td>
+        <td>{{product.discountPercentage}}%</td>
+        <td>{{product.discountedPrice | currency:'EUR'}}</td>
+        <td>{{product.total | currency:'EUR'}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onRemoveProduct(product)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{products ? products.length : 0 }} products.
+      </div>
+    </ng-template>
+  </p-table>
+</div>

@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class UsersComponent implements OnInit {
   users: Array<User> = Array.of();
   selectedUsers: Array<User> = Array.of();
+  user?: User;
 
   statuses: Array<any> = Array.of();
 
@@ -126,5 +127,14 @@ export class UsersComponent implements OnInit {
   onRowSelection(event: any) {
     let route = '/users/';
     this.router.navigate([route, event.data.id]);
+  }
+
+  onAddUser() {
+    this.displayModal = true;
+  }
+
+  onSubmit(event: MouseEvent) {
+    this.displayModal = false;
+    this.usersService.addUser(this.user!!);
   }
 }
