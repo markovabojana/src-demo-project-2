@@ -1,2 +1,4 @@
+<div class="auth-button" id="google-button"></div>
+<ng-template [ngIf]="isLoggedIn"><button pButton icon="pi pi-sign-out" class="auth-button" (click)="logout()">Logout</button></ng-template>
 <app-menu></app-menu>
 <router-outlet></router-outlet>
